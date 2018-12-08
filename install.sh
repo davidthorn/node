@@ -11,8 +11,8 @@ tsc --init
 # run file system first to start configuring package files
 npm install path typescript fs-extra @types/node @types/fs-extra strip-json-comments @types/strip-json-comments  --save-dev
 npm install path @types/strip-json-comments
-tsc /home/david/node/config/tsc-config.ts
-node /home/david/node/config/tsc-config.js
+tsc "$SCRIPT_PATH"/config/tsc-config.ts
+node "$SCRIPT_PATH"/config/tsc-config.js
 
 npm install ts-node mocha chai typescript  mocha-typescript source-map-support nyc --save-dev
 npm install @types/mocha @types/chai @types/node --save-dev
