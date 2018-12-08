@@ -1,11 +1,16 @@
 #!/bin/sh
 
+SCRIPT=$(readlink -f $0)
+SCRIPT_PATH=`dirname $SCRIPT` 
+
+npm install --prefix $SCRIPT_PATH
+
 npm init
 tsc --init
 
 # run file system first to start configuring package files
 npm install path typescript fs-extra @types/node @types/fs-extra strip-json-comments @types/strip-json-comments  --save-dev
-npm install path
+npm install path @types/strip-json-comments
 tsc /home/david/node/config/tsc-config.ts
 node /home/david/node/config/tsc-config.js
 
