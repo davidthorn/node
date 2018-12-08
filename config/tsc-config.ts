@@ -14,18 +14,50 @@ let packageContentContents = stripJsonComments(fs.readFileSync(packagePath , { e
 let packageJSON = JSON.parse(packageContentContents)
 let licenseContents = fs.readFileSync(path.join(__dirname , '/LICENSE') , { encoding:'utf8' })
 
-tsconfigJSON.include = [ "src/**/*.ts"  ]
-tsconfigJSON.lib = [ "es2017" , "dom" ]
-tsconfigJSON.compilerOptions.resolveJsonModule = true 
+tsconfigJSON.compilerOptions = {
+    "target": "es6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "lib": [ "es6", "dom" ],
+    "resolveJsonModule" : true
+}
 
 fs.writeFileSync(tsConfigPath, JSON.stringify(tsconfigJSON, null, 4) , { encoding: 'utf8' })
 
-packageJSON.scripts.test = "mocha -r ts-node/register tests/**/*.ts"
+const scripts = {
+    "pretest": "tsc",
+    "test": "nyc mocha",
+    "watch": "mocha-typescript-watch",
+    "prepare": "tsc"
+}
+
+packageJSON.scripts = scripts
 packageJSON.main = "src/main.ts"
+
+const nyc = {
+    "check-coverage": true,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 80,
+    "include": [
+        "src/**/*.js"
+    ],
+    "exclude": [
+        "test/**/*.js"
+    ],
+    "reporter": [
+        "lcov",
+        "text-summary"
+    ],
+    "all": true
+}
+
 const username = execSync("git config --global user.name",  { encoding:'utf8' }).trim().replace('\n' , "")
 const email = execSync("git config --global user.email", { encoding:'utf8' }).trim().replace('\n' , "")
 packageJSON.author = `${username} <${email}>`
-
+packageJSON.nyc = nyc
 fs.writeFileSync(packagePath, JSON.stringify(packageJSON, null, 4) , { encoding: 'utf8' })
 
 fs.writeFileSync(readmePath, `# ${packageJSON.name}\n\n${packageJSON.description}\n\nAuthor ${packageJSON.author}\n\nCreated ${new Date().toString()}` , { encoding: 'utf8' })

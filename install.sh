@@ -18,10 +18,10 @@ npm install ts-node mocha chai typescript  mocha-typescript source-map-support n
 npm install @types/mocha @types/chai @types/node --save-dev
 
 mkdir -p src
-echo "export const result = true" > src/main.ts
+cp -r "$SCRIPT_PATH"/config/src/* src
 
-mkdir -p tests
-echo "import * as testData from '../src/main'\nimport { expect } from 'chai'\n\ndescribe('Test chai', () => {\n\tit('should be true' , () => {\n\t\texpect(testData.result).to.be.equal(true)\n\t})\n})" > tests/chai.test.ts 
+mkdir -p test
+cp -r "$SCRIPT_PATH"/config/test/* test
 
 npm run test
 
