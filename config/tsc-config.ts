@@ -1,7 +1,7 @@
 import { spawn, execSync } from 'child_process'
 import * as fs from 'fs-extra'
 import * as path  from 'path'
-import * as stripJsonComments from 'strip-json-comments'
+import stripJsonComments from 'strip-json-comments'
 
 let tsConfigPath = path.join(process.cwd() , '/tsconfig.json')
 let packagePath = path.join(process.cwd() , '/package.json')
@@ -26,10 +26,13 @@ tsconfigJSON.compilerOptions = {
 fs.writeFileSync(tsConfigPath, JSON.stringify(tsconfigJSON, null, 4) , { encoding: 'utf8' })
 
 const scripts = {
+    ...packageJSON.scripts,
     "pretest": "tsc",
     "test": "nyc mocha",
     "watch": "mocha-typescript-watch",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "start": "webpack-dev-server --open",
+    "build": "webpack && cp -r assets/* dist && tsc"
 }
 
 packageJSON.scripts = scripts
