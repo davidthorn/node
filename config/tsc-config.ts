@@ -2,15 +2,17 @@ import { spawn, execSync } from 'child_process'
 import * as fs from 'fs-extra'
 import * as path  from 'path'
 import * as stripJsonComments from 'strip-json-comments'
+import { Sanitizer } from 'djt-json-sanitizer/src'
 
 let tsConfigPath = path.join(process.cwd() , '/tsconfig.json')
 let packagePath = path.join(process.cwd() , '/package.json')
 let readmePath = path.join(process.cwd() , '/README.md')
 let licensePath = path.join(process.cwd() , '/LICENSE')
+const sanitizer = new Sanitizer("")
 
-let tsContentContents = stripJsonComments(fs.readFileSync(tsConfigPath , { encoding:'utf8' }), { whitespace: true })
+let tsContentContents = sanitizer.jsonFile(fs.readFileSync(tsConfigPath , { encoding:'utf8' }))
 let tsconfigJSON = JSON.parse(tsContentContents)
-let packageContentContents = stripJsonComments(fs.readFileSync(packagePath , { encoding:'utf8' }), { whitespace: true })
+let packageContentContents = sanitizer.jsonFile(fs.readFileSync(packagePath , { encoding:'utf8' }))
 let packageJSON = JSON.parse(packageContentContents)
 let licenseContents = fs.readFileSync(path.join(__dirname , '/LICENSE') , { encoding:'utf8' })
 
