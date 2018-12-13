@@ -1,7 +1,7 @@
 import { spawn, execSync } from 'child_process'
 import * as fs from 'fs-extra'
 import * as path  from 'path'
-import stripJsonComments from 'strip-json-comments'
+import * as stripJsonComments from 'strip-json-comments'
 
 let tsConfigPath = path.join(process.cwd() , '/tsconfig.json')
 let packagePath = path.join(process.cwd() , '/package.json')

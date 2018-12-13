@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var child_process_1 = require("child_process");
 var fs = require("fs-extra");
@@ -22,12 +33,7 @@ tsconfigJSON.compilerOptions = {
     "resolveJsonModule": true
 };
 fs.writeFileSync(tsConfigPath, JSON.stringify(tsconfigJSON, null, 4), { encoding: 'utf8' });
-var scripts = {
-    "pretest": "tsc",
-    "test": "nyc mocha",
-    "watch": "mocha-typescript-watch",
-    "prepare": "tsc"
-};
+var scripts = __assign({}, packageJSON.scripts, { "pretest": "tsc", "test": "nyc mocha", "watch": "mocha-typescript-watch", "prepare": "tsc", "start": "webpack-dev-server --open", "build": "webpack && cp -r assets/* dist && tsc" });
 packageJSON.scripts = scripts;
 packageJSON.main = "src/main.ts";
 var nyc = {
