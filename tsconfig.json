@@ -14,7 +14,7 @@
     },
 
     "exclude": [
-        "config/*.ts",
+        "config/**/*.ts",
         "assets",
         "node_modules"
     ]
