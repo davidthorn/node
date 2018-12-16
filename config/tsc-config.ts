@@ -1,8 +1,7 @@
 import { spawn, execSync } from 'child_process'
 import * as fs from 'fs-extra'
 import * as path  from 'path'
-import * as stripJsonComments from 'strip-json-comments'
-import { Sanitizer } from 'djt-json-sanitizer/src'
+import { Sanitizer } from 'djt-json-sanitizer'
 
 let tsConfigPath = path.join(process.cwd() , '/tsconfig.json')
 let packagePath = path.join(process.cwd() , '/package.json')
