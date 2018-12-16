@@ -1,6 +1,6 @@
 {
     "name": "heja",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "This is a very simple install script which you can use to initiate a typescript project which uses mocha, chai, typescript and git. Heja BVB!",
     "main": "src/main.ts",
     "scripts": {
