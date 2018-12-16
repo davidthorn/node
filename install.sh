@@ -9,8 +9,8 @@ npm init
 tsc --init
 
 # run file system first to start configuring package files
-npm install path typescript fs-extra @types/node @types/fs-extra strip-json-comments @types/strip-json-comments  --save-dev
-npm install path @types/strip-json-comments
+npm install path typescript fs-extra @types/node @types/fs-extra djt-json-sanitizer  --save-dev
+
 tsc "$SCRIPT_PATH"/config/tsc-config.ts
 node "$SCRIPT_PATH"/config/tsc-config.js
 
